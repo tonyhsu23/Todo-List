@@ -29,13 +29,19 @@ app.controller('TodoController', function(){
   };
 
   this.addTodo = function(){
-    this.things.push({text: this.things.text, done: false, id: this.things.id});
-    $.post("/todos",
-    {
-      todo: this.things.text,
-      done: false,
-      id: this.things.id
-    }, function(data,status){});
+    var temp_id = 0;
+
+    $.ajax({
+      url: '/todos/',
+      type: 'POST',
+      data: {todo: this.things.text, done: false},
+      success: function(data) {
+        temp_id = data.id;
+      },
+      async: false
+    });
+
+    this.things.push({text: this.things.text, done: false, id: temp_id});
     this.things.text = '';
   };
 
