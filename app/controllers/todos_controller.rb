@@ -1,4 +1,5 @@
 class TodosController < ApplicationController
+  before_action :login_required
 
   def index
     all_todos = Todo.all

@@ -31,18 +31,20 @@ app.controller('TodoController', function(){
   this.addTodo = function(){
     var temp_id = 0;
 
-    $.ajax({
-      url: '/todos/',
-      type: 'POST',
-      data: {todo: this.things.text, done: false},
-      success: function(data) {
-        temp_id = data.id;
-      },
-      async: false
-    });
+    if(this.things.text){
+      $.ajax({
+        url: '/todos/',
+        type: 'POST',
+        data: {todo: this.things.text, done: false},
+        success: function(data) {
+          temp_id = data.id;
+        },
+        async: false
+      });
 
-    this.things.push({text: this.things.text, done: false, id: temp_id});
-    this.things.text = '';
+      this.things.push({text: this.things.text, done: false, id: temp_id});
+      this.things.text = '';
+    }  
   };
 
   this.init = function(all_todos){

@@ -4,10 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  def login_required
+  	if current_user.blank?
+  	  flash[:notice] = "Please Log In to Proceed."
+  	  redirect_to new_user_session_path
+  	end
+  end
+
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, 
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email,
       :password, :password_confirmation)}
   end
 
