@@ -25,6 +25,14 @@ img {
 .navbar-static-top .navbar-brand:hover {
   color: #005167;
 }
+.navbar .nav > li > a {
+  font-size: 15px;
+  color: #00799A;
+}
+.navbar .nav > li > a:hover {
+  color: #005167;
+  background-color: white;
+}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -85,6 +93,14 @@ section {
 }
 
 blockquote { margin-bottom: 0px; }
+
+/* white box to seperate from body and background */
+.box {
+  margin-top: 10px;
+  padding-bottom: 30px;
+  background-color: white;
+  border: 1px solid #D3D3D3;
+}
 
 /* sticky footer */
 html,
