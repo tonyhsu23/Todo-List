@@ -9,15 +9,19 @@
     <%= csrf_meta_tags %>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
     <%= javascript_include_tag "angular/todo.js" %>
-    
+
   </head>
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
+    <div id="wrap">
+      <header>
+        <%= render 'layouts/navigation' %>
+      </header>
+      <main role="main">
+         <%= render 'layouts/messages' %>
+         <%= yield %>
+      </main>
+    </div>
+
   </body>
+  <%= render 'layouts/footer' %>
 </html>
