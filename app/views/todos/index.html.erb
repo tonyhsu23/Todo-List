@@ -13,7 +13,7 @@
           <blockquote class="done-{{thing.done}}">
             {{thing.text}}
             <span class="checkbx">
-              <input type="checkbox" ng-model="thing.done">
+              <input type="checkbox" ng-model="thing.done" ng-change="todoCtrl.change(thing.id, thing.done)">
             </span>
           </blockquote>
         </li>

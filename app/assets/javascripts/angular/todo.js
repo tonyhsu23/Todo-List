@@ -3,6 +3,17 @@ var app = angular.module('todo', []);
 app.controller('TodoController', function(){
   this.things = todos;
 
+  this.change = function(id, status){
+    $.ajax({
+      url: '/todos/'+id,
+      type: 'PUT',
+      data: {done: status},
+      success: function(result) {
+      },
+      async: false
+    });
+  };
+
   this.archive = function(){
     var old = this.things;
     this.things = [];
@@ -44,7 +55,7 @@ app.controller('TodoController', function(){
 
       this.things.push({text: this.things.text, done: false, id: temp_id});
       this.things.text = '';
-    }  
+    }
   };
 
   this.init = function(all_todos){
