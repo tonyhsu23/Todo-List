@@ -1,11 +1,54 @@
 var app = angular.module('todo', []);
 
+app.controller('ListController', function(){
+
+  this.lists = lists;
+
+  this.initial = function(all_lists){
+    var todo_count = 0;
+    for(var i=0;i<all_lists.length;i++){
+
+      $.ajax({
+        url: '/lists/'+all_lists[i].id+'/count',
+        type: 'GET',
+        success: function(data) {
+          todo_count = data;
+        },
+        async: false
+      });
+
+      lists.push({
+        title: all_lists[i].title,
+        count: todo_count,
+        id: all_lists[i].id
+      });
+    }
+  };
+
+  this.addList = function(){
+    var temp_id = 0;
+    $.ajax({
+      url: '/lists/',
+      type: 'POST',
+      data: {title: this.lists.title},
+      success: function(data) {
+        temp_id = data.id;
+      },
+      async: false
+    });
+    this.lists.push({title: this.lists.title, count: 0,id: temp_id});
+    this.lists.title = '';
+  };
+
+});
+
 app.controller('TodoController', function(){
+
   this.things = todos;
 
   this.change = function(id, status){
     $.ajax({
-      url: '/todos/'+id,
+      url: '/lists/'+this.listId+'/todos/'+id,
       type: 'PUT',
       data: {done: status},
       success: function(result) {
@@ -22,7 +65,7 @@ app.controller('TodoController', function(){
         this.things.push(old[i]);
       }else{
         $.ajax({
-          url: '/todos/'+old[i].id,
+          url: '/lists/'+this.listId+'/todos/'+old[i].id,
           type: 'DELETE',
           success: function(result) {
           }
@@ -44,7 +87,7 @@ app.controller('TodoController', function(){
 
     if(this.things.text){
       $.ajax({
-        url: '/todos/',
+        url: '/lists/'+this.listId+'/todos',
         type: 'POST',
         data: {todo: this.things.text, done: false},
         success: function(data) {
@@ -52,13 +95,15 @@ app.controller('TodoController', function(){
         },
         async: false
       });
-
       this.things.push({text: this.things.text, done: false, id: temp_id});
       this.things.text = '';
     }
   };
 
-  this.init = function(all_todos){
+  this.init = function(all_todos, alist){
+    this.title = alist.title;
+    this.listId = alist.id;
+
     for(var i=0;i<all_todos.length;i++){
       todos.push({
         text: all_todos[i].todo,
@@ -71,3 +116,4 @@ app.controller('TodoController', function(){
 });
 
 var todos = [];
+var lists = [];

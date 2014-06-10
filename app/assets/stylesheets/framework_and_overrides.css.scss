@@ -87,12 +87,26 @@ section {
   margin-top: 20px;
 }
 
+.page-top {
+  margin-top: 20px;
+}
+
 .btn-lg {
   height: 46px;
   background-color: #00799A;
 }
+.btn-primary{ background-color: #00799A; }
 
 blockquote { margin-bottom: 0px; }
+
+hr {
+  border-color: #00799A;
+  border-width: 2px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+}
+
+.list { margin-top: 20px; }
 
 /* white box to seperate from body and background */
 .box {
@@ -100,6 +114,10 @@ blockquote { margin-bottom: 0px; }
   padding-bottom: 30px;
   background-color: white;
   border: 1px solid #D3D3D3;
+}
+
+.list-group-item {
+  font-size: 20px;
 }
 
 /* sticky footer */

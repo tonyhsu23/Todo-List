@@ -1,5 +1,10 @@
 ToDo::Application.routes.draw do
   devise_for :users
-  resources :todos
-  root to: "todos#index"
+  resources :lists do
+    member do
+      get 'count'
+    end
+    resources :todos
+  end
+  root to: "lists#index"
 end

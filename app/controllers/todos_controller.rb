@@ -2,15 +2,16 @@ class TodosController < ApplicationController
   before_action :login_required
 
   def index
-    all_todos = current_user.todos.all
-    #all_todos = Todo.all
+    list = current_user.lists.find(params[:list_id])
+    @list = list.to_json
+    all_todos = list.todos.all
     @todos = all_todos.to_json
-    Rails.logger.debug all_todos.inspect
+    Rails.logger.debug @todos.inspect
   end
 
   def create
-    @todo = current_user.todos.build(todo: params[:todo], done: params[:done])
-    #@todo = Todo.new(todo: params[:todo], done: params[:done])
+    list = current_user.lists.find(params[:list_id])
+    @todo = list.todos.build(todo: params[:todo], done: params[:done])
     Rails.logger.debug params.inspect
 
     @todo.save
@@ -21,7 +22,9 @@ class TodosController < ApplicationController
   end
 
   def update
-    @todo = current_user.todos.find(params[:id])
+    Rails.logger.debug params.inspect
+    list = current_user.lists.find(params[:list_id])
+    @todo = list.todos.find(params[:id])
 
     @todo.update(done: params[:done])
 
@@ -31,7 +34,8 @@ class TodosController < ApplicationController
   end
 
   def destroy
-    @todo = current_user.todos.find(params[:id])
+    list = current_user.lists.find(params[:list_id])
+    @todo = list.todos.find(params[:id])
     @todo.destroy
 
     respond_to do |format|
