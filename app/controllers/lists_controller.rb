@@ -18,19 +18,6 @@ class ListsController < ApplicationController
     end
   end
 
-  def count
-    #count how many todos in a list
-    list  = current_user.lists.find(params[:id]);
-    todos = list.todos.all
-    todo_count = todos.length
-
-    Rails.logger.debug todo_count.inspect
-
-    respond_to do |format|
-      format.json { render json: todo_count }
-    end
-  end
-
   private
 	def list_params
 		params.require(:list).permit(:title)

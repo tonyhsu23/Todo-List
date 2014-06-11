@@ -11,6 +11,9 @@ class TodosController < ApplicationController
 
   def create
     list = current_user.lists.find(params[:list_id])
+    count = (list.count.nil?) ? 1 : list.count+1
+    list.update(count: count)
+    
     @todo = list.todos.build(todo: params[:todo], done: params[:done])
     Rails.logger.debug params.inspect
 
@@ -35,6 +38,9 @@ class TodosController < ApplicationController
 
   def destroy
     list = current_user.lists.find(params[:list_id])
+    count = list.count - 1
+    list.update(count: count)
+
     @todo = list.todos.find(params[:id])
     @todo.destroy
 

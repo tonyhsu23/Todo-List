@@ -5,21 +5,10 @@ app.controller('ListController', function(){
   this.lists = lists;
 
   this.initial = function(all_lists){
-    var todo_count = 0;
     for(var i=0;i<all_lists.length;i++){
-
-      $.ajax({
-        url: '/lists/'+all_lists[i].id+'/count',
-        type: 'GET',
-        success: function(data) {
-          todo_count = data;
-        },
-        async: false
-      });
-
       lists.push({
         title: all_lists[i].title,
-        count: todo_count,
+        count: all_lists[i].count,
         id: all_lists[i].id
       });
     }
