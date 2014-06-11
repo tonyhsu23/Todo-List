@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def login_required
   	if current_user.blank?
-  	  flash[:notice] = "Please Log In to Proceed."
+  	  flash[:warning] = "Please Sign In to Proceed."
   	  redirect_to new_user_session_path
   	end
   end
