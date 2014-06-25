@@ -126,6 +126,14 @@ hr {
   margin-top: 3px;
 }
 
+.delete-link {
+  float: right;
+  margin-top: 7px;
+}
+
+a:link { color: #636365; }
+a:hover { color: #4a4a4b; }
+
 /* sticky footer */
 html,
 body {

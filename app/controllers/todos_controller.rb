@@ -2,9 +2,9 @@ class TodosController < ApplicationController
   before_action :login_required
 
   def index
-    list = current_user.lists.find(params[:list_id])
-    @list = list.to_json
-    all_todos = list.todos.all
+    @list = current_user.lists.find(params[:list_id])
+    @list_json = @list.to_json
+    all_todos = @list.todos.all
     @todos = all_todos.to_json
     Rails.logger.debug @todos.inspect
   end
@@ -13,7 +13,7 @@ class TodosController < ApplicationController
     list = current_user.lists.find(params[:list_id])
     count = (list.count.nil?) ? 1 : list.count+1
     list.update(count: count)
-    
+
     @todo = list.todos.build(todo: params[:todo], done: params[:done])
     Rails.logger.debug params.inspect
 

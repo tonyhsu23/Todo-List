@@ -8,14 +8,20 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = current_user.lists.build(title: params[:title]);
+    @list = current_user.lists.build(title: params[:title], count: 0);
     Rails.logger.debug params.inspect
 
     @list.save
-
+    
     respond_to do |format|
       format.json { render json: @list }
     end
+  end
+
+  def destroy
+    @list = current_user.lists.find(params[:id])
+    @list.destroy
+    redirect_to lists_path
   end
 
   private

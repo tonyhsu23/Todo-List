@@ -1,7 +1,11 @@
 <div class="container page-top">
   <div class="thumbnail col-md-4 col-md-offset-4">
 
-    <div ng-controller="TodoController as todoCtrl" ng-init="todoCtrl.init(<%= @todos %>,<%= @list %>)">
+    <%= link_to(list_path(@list), method: :delete, class: "delete-link", confirm: :"Are You Sure?") do %>
+      <span class="glyphicon glyphicon-trash"></span>
+    <% end %>
+
+    <div ng-controller="TodoController as todoCtrl" ng-init="todoCtrl.init(<%= @todos %>,<%= @list_json %>)">
       <h1>{{todoCtrl.title}}</h1>
       <h4>
         <span class="badge">{{todoCtrl.remaining()}}</span> of
